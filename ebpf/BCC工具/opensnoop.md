@@ -29,7 +29,7 @@ sudo opensnoop-bpfcc -p <PID>
 | `FD`   | 文件描述符，成功时通常是非负数 |
 | `ERR`  | 错误码，`0` 表示成功    |
 | `PATH` | 文件路径            |
-常见错误码
+常见错误码：
 
 |错误码|含义|
 |---|---|
@@ -47,8 +47,3 @@ ls /not-exist-file
 ```bash
 sudo opensnoop-bpfcc
 ```
-## 6. 我的观察
-能看到 date 被执行 5 次。
-
-## 7. 工作场景
-排查 CPU 抖动、异常脚本、可疑进程执行。
