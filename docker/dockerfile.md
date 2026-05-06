@@ -4,7 +4,23 @@
 # 注释以 # 开头 
 指令 参数
 ```
-### **八大指令：**
+### 常用指令：**
+
+```text
+FROM        # 基础镜像，一切从这里开始构建
+MAINTAINER    # 镜像是谁写的：姓名+邮箱
+RUN            # 镜像构建的时候需要运行的命令
+ADD            # 步骤：tomcat镜像，这个tomcat压缩包！添加内容
+WORKDIR        # 镜像的工作目录
+VOLUME        # 挂载的目录
+EXPOSE        # 暴露端口配置
+CMD            # 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可被替代
+ENTRYPOINT    # 指定这个容器启动的时候要运行的命令，可以追加命令
+ONBUILD        # 当构建一个被继承DockerFile这个时候就会运行ONBUILD的指令。触发指令。
+COPY        # 类似ADD，将我们文件拷贝到镜像中
+ENV            # 构建的时候设置环境变量！
+```
+```
 
 #### 1.1 `FROM`命令
 指定基础镜像，必须是第一条非注释指令。
@@ -73,4 +89,17 @@ RUN apt-get install -y nginx=${NGINX_VERSION}
 ```dockerfile
 EXPOSE 80 443 # 告诉用户此镜像使用这些端口
 ```
-1.7 #### `CMD` vs `ENTRYPOINT` —— 启动的双子星
+#### 1.7`CMD` vs `ENTRYPOINT` 
+
+| 指令           | 作用                   | 可被覆盖？ |
+| ------------ | -------------------- | ----- |
+| `CMD`        | 默认参数（提供给 ENTRYPOINT） | ✅ 是   |
+| `ENTRYPOINT` | 主命令（容器启动时执行）         | ❌ 否   |
+
+#### 1.8 `LABEL` —— 镜像元数据
+添加镜像描述信息，便于管理和追踪。
+```dockerfile
+LABEL maintainer="your@email.com" 
+LABEL version="1.0" 
+LABEL description="My awesome web app"
+```
