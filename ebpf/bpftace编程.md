@@ -75,8 +75,13 @@ kprobe:vfs_*
 ```
 会对所有以vfs开头的内核函数进行插桩。但过多探针同时插桩会造成不必要的性能开销，因此bpftrace可以设置允许同时开启的探针数量。
 
-在使用通配符之前可以使用`bpftrace -l`来进行测试
 
+> [!NOTE] 什么是vfs
+> vfs表示**Virtual File System（虚拟文件系统）的缩写**，是linux内核中的一个核心抽象层。像上层提供一套完整统一的文件操作接口
+
+
+在使用通配符之前可以使用`bpftrace -l`来进行测试
+![[ebpf/_image/1.png]]
 ### 探针类型总结
 
 | 类型             | 缩写  | 描述           |
@@ -211,7 +216,7 @@ kretprobe:vfs_read
 /@start[tid]/
 {
         $duration_us=(nsecs-@start[tid]) /1000;
-        @us =hist($duration_us);
+        @us[pid,commm] =hist($duration_us);
         delete(@start[tid]);
 }
 
@@ -219,4 +224,5 @@ kretprobe:vfs_read
 ```
 
 在函数运行时存储时间戳，在函数退出时计算时间差，从而记录函数用时。
-
+运行结果：
+![[2.png]]
