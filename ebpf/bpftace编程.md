@@ -226,3 +226,23 @@ kretprobe:vfs_read
 在函数运行时存储时间戳，在函数退出时计算时间差，从而记录函数用时。
 运行结果：
 ![[2.png]]
+
+
+## 探针类型
+
+### traecpoint
+
+tracepoint探针类型会对内核跟踪点进行插桩。格式是：
+```
+tracepoint:tracepoint_name
+```
+tracepoint是跟踪点全名，包括跟踪点所在的类别和事件名字所分隔开的冒号。
+
+跟踪点通常是带有参数：bpftrace可以通过内置变量args来访问这些参数的信息。例如`net:netiff_rx`有一个代表数据包长度的参数，名字为`len`，可以通过`args->len`来访问
+
+对于`sys_enter_read`跟踪点来说，它的参数可以通过`args->fd`,`args->buf`和`args->count`进行调用。这些可以通过**bpftrace的-l(列表)和-v(详细)模式**进行查看
+```
+bpftrace -lv tracepoint:syscalls:sys_enter_read
+```
+
+
