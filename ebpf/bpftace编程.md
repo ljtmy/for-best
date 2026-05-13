@@ -166,4 +166,40 @@ probe2 {$x=@a};
 ```
 @x =count();
 ```
-- 对事件进行统计累计，打印时会打印出累计结果。这里使用了每CPU特定的映射表，下面的语句也会jin'x
+- 对事件进行统计累计，打印时会打印出累计结果。这里使用了**每CPU特定的映射表**，下面的语句也会进行计数。
+
+```
+@x++
+```
+- 这里使用的是一个全局映射表，不是每个CPU独立的映射表，这里的@x为整数，不是count类型。提供两种支持。
+
+```
+@y = sum($x); //对变量$x求和
+@z = hist($x); //将$x保存在一个以2的幂为区间的直方图中
+```
+
+**映射表函数总结：**
+
+## 实战：对vfs_read()计时
+
+```
+#!/usr/local/bin/bpftrace
+
+kprobe:vfs_read
+{
+        @start[tid] = nsecs; //每个线程的时间戳单独储存
+
+}
+
+kretprobe:vfs_read
+/@start[tid]/
+{
+        $duration_us=(nsecs-@start[tid]) /1000;
+        @us =hist($duration_us);
+        delete(@start[tid]);
+}
+
+
+```
+
+在函数运行时存储时间戳，在函数退出时计算时间差，从而记录函数用时。
