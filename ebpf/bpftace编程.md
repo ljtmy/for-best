@@ -87,3 +87,47 @@ kprobe:vfs_*
 ```
 
 ## 动作（action）
+一个动作可以是单条语句也可以是使用分号分隔的多条语句。
+
+```
+{action1;action2;action3}
+```
+全部语句的最后也可以加分号。
+
+## Hello world
+
+```
+bpftrace -e 'BEGIN {printf{"Hello world!\n"}; }'
+```
+
+如果以文本形式书写，则形式如下：
+
+```
+#!/usr/local/bin/bpftrace
+
+BEGIN
+{
+	printf("Hello world!\n")
+}
+```
+程序中的缩进和换行不是必须的。
+
+## 函数
+除了`printf`函数，以下为其它常见内置函数：
+
+- exit():退出bpftrace
+- str(char *):输入一个指针，返回字符串
+- system(format[,arguments...])：在shell中运行命令
+
+## 变量
+
+变量分为3种，**内置变量**，**临时变量**，**映射表变量**
+
+1. **内置变量**：有bpftrace预定义好的，通常是只读的信息源。
+内置变量主要包括以下：
+- pid：进程id
+- comm：进程名称
+- nsecs：以纳秒为单位的时间戳单位
+- curtask：当前线程的task_struct结构体
+
+1. **临时变量**：用于临时计算，字首加“$”为前缀
