@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"d189235e73d00636","x":-540,"y":-100,"width":250,"height":50,"color":"1","type":"text","text":"gin框架"},
+		{"id":"673f15112afc4b7a","x":-220,"y":-340,"width":250,"height":60,"type":"text","text":"gin框架是什么"},
+		{"id":"cfb27fd9f6670678","x":80,"y":-500,"width":250,"height":60,"type":"text","text":""},
+		{"id":"2c2455b3b0e96188","x":80,"y":-400,"width":250,"height":60,"type":"text","text":""},
+		{"id":"95677942a0cf0741","x":80,"y":-310,"width":250,"height":60,"type":"text","text":""},
+		{"id":"6c229ace8ddc2fc4","x":80,"y":-220,"width":250,"height":60,"type":"text","text":""},
+		{"id":"aebe42510928b2dc","x":80,"y":-130,"width":250,"height":60,"type":"text","text":""},
+		{"id":"2a24f40a8966751f","x":-220,"y":20,"width":250,"height":60,"type":"text","text":"路由"},
+		{"id":"2931766a60b98e6b","x":-220,"y":-160,"width":250,"height":60,"type":"text","text":"基本使用流程"}
+	],
+	"edges":[]
+}
